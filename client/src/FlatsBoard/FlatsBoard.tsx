@@ -5,10 +5,11 @@ import './FlatsBoard.css';
 import FlatsBox from '../FlatBox/FlatBox';
 
 export default function FlatsBoard() {
-    Start();
+    const isStarted = Start();
 
     const [page, setPage] = useState<number>(1);
-    const { flats, hasMore } = GetFlatsList(page);
+
+    const { flats, hasMore } = GetFlatsList(page, isStarted);
 
     function incPage() {
       setPage(prev => prev + 1)

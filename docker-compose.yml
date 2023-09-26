@@ -1,0 +1,30 @@
+version: "3"
+services:
+  server:
+    container_name: "reality-server"
+    build:
+      context: ./server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: "postgres:latest"
+    container_name: "reality-postgres"
+    environment:
+      POSTGRES_PASSWORD: db2023
+      POSTGRES_USER: postgres
+      POSTGRES_DB: reality
+    ports:
+      - "5432:5432"
+
+  client:
+    container_name: "reality-client"
+    build:
+      context: ./client
+    ports:
+      - '8080:3000'
+    restart: on-failure
+    depends_on:
+      - server

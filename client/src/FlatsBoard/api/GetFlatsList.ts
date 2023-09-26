@@ -12,17 +12,17 @@ export interface IFlatsListResponse {
     hasMore: boolean,
 }
 
-export default function GetFlatsList(page: number): IFlatsListResponse {
+export default function GetFlatsList(page: number, isStarted: boolean): IFlatsListResponse {
     const [data, setData] = useState<IFlatsListResponse>({ flats: [], hasMore: false });
 
     useEffect(() => {
-        axios.get('http://localhost:5000/flats_list', {
+        isStarted && axios.get('http://localhost:5000/flats_list', {
             params: { page }
         })
             .then(res => {
                 setData(res.data);
             })
-    }, [page])
+    }, [page, isStarted])
 
     return data;
 };
